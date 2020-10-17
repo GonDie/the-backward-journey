@@ -13,12 +13,13 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer _spriteRenderer;
     Animator _animator;
     CharacterController2D _characterController;
+    Health _health;
 
     PlayerState _lastState;
     PlayerState _currentState;
     float _moveSpeed;
     bool _hasJumped, _isJumping, _isSecondJumping;
-    bool _isStunned;
+    bool _isDead, _isStunned;
     bool _canPlay = true;
 
     Coroutine _gettingHitCoroutine;
@@ -30,6 +31,10 @@ public class PlayerController : MonoBehaviour
         _characterController = GetComponent<CharacterController2D>();
         _characterController.OnFallEvent.AddListener(() => SetPlayerState(PlayerState.Falling));
         _characterController.OnLandEvent.AddListener(() => SetPlayerState(PlayerState.Idle));
+
+        _health = GetComponent<Health>();
+        _health.OnHit += (float f) => SetPlayerState(PlayerState.GettingHit);
+        _health.OnDeath += (float f) => { _isStunned = false; SetPlayerState(PlayerState.Dying); };
 
         Events.OnLevelStart += OnLevelStart;
         Events.OnLevelEnd += OnLevelEnd;
@@ -46,11 +51,8 @@ public class PlayerController : MonoBehaviour
         if (!_canPlay)
             return;
 
-        if (_isStunned)
+        if (_isDead)
             return;
-
-        if (Input.GetKeyDown(KeyCode.F))
-            SetPlayerState(PlayerState.Dying);
 
         switch (_currentState)
         {
@@ -107,7 +109,7 @@ public class PlayerController : MonoBehaviour
 
     void SetPlayerState(PlayerState state)
     {
-        if (_lastState == state)
+        if (_lastState == state || _lastState == PlayerState.Dying)
             return;
 
         _currentState = state;
@@ -152,8 +154,8 @@ public class PlayerController : MonoBehaviour
     void GettingHitState()
     {
         _isStunned = true;
-
         _moveSpeed = 0f;
+
         if(_gettingHitCoroutine == null)
             _gettingHitCoroutine = StartCoroutine(GettingHitRoutine());
     }
@@ -168,7 +170,10 @@ public class PlayerController : MonoBehaviour
 
     void DyingState()
     {
-        _canPlay = false;
+        _isDead = true;
+        _moveSpeed = 0f;
+
+        StopAllCoroutines();
     }
     #endregion
     #region Events
