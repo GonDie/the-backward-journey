@@ -5,32 +5,49 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     const float STUN_DURATION = 0.3f;
+    const float GRAVITY_SCALE = 3f;
 
-    public enum PlayerState { Idle, Running, Falling, GettingHit, Dying }
+    public enum PlayerState { Idle, Running, Falling, GettingHit, Dying, Defending, Dashing, AttackingMelee, AttackingRanged }
 
     [SerializeField] float movementSpeed = 1f;
 
-    SpriteRenderer _spriteRenderer;
+    [Header("Skills")]
+    [SerializeField] BaseSkill _defendSkill;
+    [SerializeField] BaseSkill _attackMeleeSkill;
+    [SerializeField] BaseSkill _attackRangedSkill;
+    [SerializeField] BaseSkill _lifeStealSkill;
+
+    Transform _transform;
+    Rigidbody2D _rigidbody2D;
     Animator _animator;
+    SpriteRenderer _spriteRenderer;
     CharacterController2D _characterController;
+    TrailRenderer _trailRenderer;
     Health _health;
 
     PlayerState _lastState;
     PlayerState _currentState;
     float _moveSpeed;
     bool _hasJumped, _isJumping, _isSecondJumping;
+    bool _isDefending;
+    bool _isDashing, _canDash;
     bool _isDead, _isStunned;
     bool _canPlay = true;
 
-    Coroutine _gettingHitCoroutine;
+    Coroutine _gettingHitCoroutine, _dashCoroutine;
+
+    Dictionary<string, BaseSkill> _skills;
 
     private void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _transform = GetComponent<Transform>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _trailRenderer = GetComponent<TrailRenderer>();
         _characterController = GetComponent<CharacterController2D>();
-        _characterController.OnFallEvent.AddListener(() => SetPlayerState(PlayerState.Falling));
-        _characterController.OnLandEvent.AddListener(() => SetPlayerState(PlayerState.Idle));
+        _characterController.OnFallEvent.AddListener(OnFallEvent);
+        _characterController.OnLandEvent.AddListener(OnLandEvent);
 
         _health = GetComponent<Health>();
         _health.OnHit += (float f) => SetPlayerState(PlayerState.GettingHit);
@@ -38,6 +55,14 @@ public class PlayerController : MonoBehaviour
 
         Events.OnLevelStart += OnLevelStart;
         Events.OnLevelEnd += OnLevelEnd;
+
+        _skills = new Dictionary<string, BaseSkill>();
+        _skills.Add("DoubleJump", GetComponent<DoubleJumpSkill>());
+        _skills.Add("Dash", GetComponent<DashSkill>());
+        _skills.Add("Defend", GetComponent<DefendSkill>());
+        _skills.Add("Melee", GetComponent<MeleeSkill>());
+        _skills.Add("Ranged", GetComponent<RangedSkill>());
+        _skills.Add("LifeSteal", GetComponent<LifeStealSkill>());
     }
 
     private void OnDestroy()
@@ -65,11 +90,23 @@ public class PlayerController : MonoBehaviour
             case PlayerState.Falling:
                 FallingState();
             break;
+            case PlayerState.Defending:
+                DefendingState();
+                break;
+            case PlayerState.Dashing:
+                DashingState();
+                break;
             case PlayerState.GettingHit:
                 GettingHitState();
                 break;
             case PlayerState.Dying:
                 DyingState();
+                break;
+            case PlayerState.AttackingMelee:
+                MeleeState();
+                break;
+            case PlayerState.AttackingRanged:
+                RangedState();
                 break;
         }
 
@@ -99,10 +136,39 @@ public class PlayerController : MonoBehaviour
                 _isJumping = true;
                 _hasJumped = true;
             }
-            else
+            else if(_skills["DoubleJump"].Cast())
             {
                 _isSecondJumping = true;
                 _hasJumped = true;
+            }
+        }
+    }
+
+    void DoDefend()
+    {
+        if (!_skills["Defend"].Cast())
+            return;
+
+        if (Input.GetButtonDown("Defend"))
+        {
+            _isDefending = true;
+            SetPlayerState(PlayerState.Defending);
+        }
+        else if (Input.GetButtonUp("Defend"))
+        {
+            _isDefending = false;
+            SetPlayerState(PlayerState.Idle);
+        }
+    }
+
+    void DoDash()
+    {
+        if (_canDash && _skills["Dash"].Cast())
+        {
+            if (Input.GetButtonDown("Dash"))
+            {
+                _canDash = false;
+                SetPlayerState(PlayerState.Dashing);
             }
         }
     }
@@ -129,6 +195,8 @@ public class PlayerController : MonoBehaviour
             SetPlayerState(PlayerState.Running);
 
         DoJump();
+        DoDefend();
+        DoDash();
     }
 
     void RunningState()
@@ -141,14 +209,64 @@ public class PlayerController : MonoBehaviour
             SetPlayerState(PlayerState.Idle);
 
         DoJump();
+        DoDefend();
+        DoDash();
+    }
+
+    void DefendingState()
+    {
+        _moveSpeed = GetMovementSpeed() / 4f;
+        DoDefend();
+        DoJump();
+        DoDash();
     }
 
     void FallingState()
     {
+        _isDefending = false;
         _isJumping = true;
         _moveSpeed = GetMovementSpeed();
 
         DoJump();
+        DoDash();
+    }
+
+    void MeleeState()
+    {
+
+    }
+
+    void RangedState()
+    {
+
+    }
+
+    void DashingState()
+    {
+        if (_dashCoroutine == null)
+            _dashCoroutine = StartCoroutine(DashCoroutine());
+
+        DoJump();
+    }
+    IEnumerator DashCoroutine()
+    {
+        _isDashing = true;
+        _trailRenderer.emitting = true;
+        _rigidbody2D.gravityScale = 0f;
+        float move = GetMovementSpeed();
+        _moveSpeed = Mathf.Sign(_transform.localScale.x) * 100f;
+
+        yield return new WaitForSeconds(0.25f);
+
+        _isDashing = false;
+        _dashCoroutine = null;
+        _trailRenderer.emitting = false;
+        _rigidbody2D.gravityScale = GRAVITY_SCALE;
+
+        if (_characterController.IsGrounded)
+            _canDash = true;
+
+        SetPlayerState(PlayerState.Idle);
     }
 
     void GettingHitState()
@@ -187,5 +305,15 @@ public class PlayerController : MonoBehaviour
         _canPlay = false;
     }
 
+    void OnFallEvent()
+    {
+        SetPlayerState(PlayerState.Falling);
+    }
+
+    void OnLandEvent()
+    {
+        _canDash = true; 
+        SetPlayerState(PlayerState.Idle);
+    }
     #endregion
 }
