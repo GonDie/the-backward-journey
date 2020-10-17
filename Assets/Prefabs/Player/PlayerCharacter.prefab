@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4457857660628115155}
   - component: {fileID: 3115742418156596302}
   - component: {fileID: 3115742418156596274}
+  - component: {fileID: 6447742818381610803}
   - component: {fileID: 5712611753624645193}
   m_Layer: 11
   m_Name: PlayerCharacter
@@ -190,6 +191,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 40
+--- !u!114 &6447742818381610803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3115742418156596300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c66ce1b610c3944498f1c3bc0504fb0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 5
 --- !u!58 &5712611753624645193
 CircleCollider2D:
   m_ObjectHideFlags: 0
