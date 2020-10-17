@@ -42,11 +42,11 @@ public class CharacterController2D : MonoBehaviour
             OnCrouchEvent = new BoolEvent();
     }
 
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(m_GroundCheck.position, k_GroundedRadius);
         Gizmos.DrawSphere(m_CeilingCheck.position, k_CeilingRadius);
-    }
+    }*/
 
     private void LateUpdate()
     {
