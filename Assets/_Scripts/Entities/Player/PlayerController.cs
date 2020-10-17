@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     PlayerState _currentState;
     float _moveSpeed;
     bool _hasJumped, _isJumping, _isSecondJumping;
-    bool _canPlay;
+    bool _canPlay = true;
 
     private void Awake()
     {
