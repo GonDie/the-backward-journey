@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
                 IdleState();
             break;
             case PlayerState.Running:
-                MovingState();
+                RunningState();
             break;
             case PlayerState.Falling:
                 FallingState();
@@ -93,6 +93,8 @@ public class PlayerController : MonoBehaviour
 
         _currentState = state;
         _animator.Play(state.ToString());
+
+        Debug.Log(state.ToString());
     }
 
     #region States
@@ -108,7 +110,7 @@ public class PlayerController : MonoBehaviour
         DoJump();
     }
 
-    void MovingState()
+    void RunningState()
     {
         _isJumping = false;
         _isSecondJumping = false;
