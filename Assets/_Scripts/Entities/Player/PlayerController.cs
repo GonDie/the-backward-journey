@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public enum PlayerState { Idle, Running, Falling }
+    const float STUN_DURATION = 0.3f;
+
+    public enum PlayerState { Idle, Running, Falling, GettingHit, Dying }
 
     [SerializeField] float movementSpeed = 1f;
 
+    SpriteRenderer _spriteRenderer;
     Animator _animator;
     CharacterController2D _characterController;
 
@@ -15,10 +18,14 @@ public class PlayerController : MonoBehaviour
     PlayerState _currentState;
     float _moveSpeed;
     bool _hasJumped, _isJumping, _isSecondJumping;
+    bool _isStunned;
     bool _canPlay = true;
+
+    Coroutine _gettingHitCoroutine;
 
     private void Awake()
     {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
         _characterController = GetComponent<CharacterController2D>();
         _characterController.OnFallEvent.AddListener(() => SetPlayerState(PlayerState.Falling));
@@ -39,6 +46,12 @@ public class PlayerController : MonoBehaviour
         if (!_canPlay)
             return;
 
+        if (_isStunned)
+            return;
+
+        if (Input.GetKeyDown(KeyCode.F))
+            SetPlayerState(PlayerState.Dying);
+
         switch (_currentState)
         {
             case PlayerState.Idle:
@@ -50,6 +63,12 @@ public class PlayerController : MonoBehaviour
             case PlayerState.Falling:
                 FallingState();
             break;
+            case PlayerState.GettingHit:
+                GettingHitState();
+                break;
+            case PlayerState.Dying:
+                DyingState();
+                break;
         }
 
         _lastState = _currentState;
@@ -128,6 +147,28 @@ public class PlayerController : MonoBehaviour
         _moveSpeed = GetMovementSpeed();
 
         DoJump();
+    }
+
+    void GettingHitState()
+    {
+        _isStunned = true;
+
+        _moveSpeed = 0f;
+        if(_gettingHitCoroutine == null)
+            _gettingHitCoroutine = StartCoroutine(GettingHitRoutine());
+    }
+    IEnumerator GettingHitRoutine()
+    {
+        yield return new WaitForSeconds(STUN_DURATION);
+
+        _isStunned = false;
+        _gettingHitCoroutine = null;
+        SetPlayerState(PlayerState.Idle);
+    }
+
+    void DyingState()
+    {
+        _canPlay = false;
     }
     #endregion
     #region Events
