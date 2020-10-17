@@ -3,6 +3,9 @@
 public static class Events
 {
     public static SimpleEvent OnGameExit;
+
+    public static SimpleEvent OnLevelStart;
+    public static SimpleEvent OnLevelEnd;
 }
 
 public delegate void SimpleEvent();

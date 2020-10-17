@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     PlayerState _currentState;
     float _moveSpeed;
     bool _hasJumped, _isJumping, _isSecondJumping;
+    bool _canPlay;
 
     private void Awake()
     {
@@ -22,10 +23,22 @@ public class PlayerController : MonoBehaviour
         _characterController = GetComponent<CharacterController2D>();
         _characterController.OnFallEvent.AddListener(() => SetPlayerState(PlayerState.Falling));
         _characterController.OnLandEvent.AddListener(() => SetPlayerState(PlayerState.Idle));
+
+        Events.OnLevelStart += OnLevelStart;
+        Events.OnLevelEnd += OnLevelEnd;
+    }
+
+    private void OnDestroy()
+    {
+        Events.OnLevelStart -= OnLevelStart;
+        Events.OnLevelEnd -= OnLevelEnd;
     }
 
     void Update()
     {
+        if (!_canPlay)
+            return;
+
         switch (_currentState)
         {
             case PlayerState.Idle:
@@ -46,6 +59,40 @@ public class PlayerController : MonoBehaviour
     {
         _characterController.Move(_moveSpeed * Time.fixedDeltaTime, false, _hasJumped);
         _hasJumped = false;
+    }
+
+    float GetMovementSpeed()
+    {
+        return Input.GetAxisRaw("Horizontal") * movementSpeed;
+    }
+
+    void DoJump()
+    {
+        if (_isSecondJumping)
+            return;
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (!_isJumping)
+            {
+                _isJumping = true;
+                _hasJumped = true;
+            }
+            else
+            {
+                _isSecondJumping = true;
+                _hasJumped = true;
+            }
+        }
+    }
+
+    void SetPlayerState(PlayerState state)
+    {
+        if (_lastState == state)
+            return;
+
+        _currentState = state;
+        _animator.Play(state.ToString());
     }
 
     #region States
@@ -81,38 +128,16 @@ public class PlayerController : MonoBehaviour
         DoJump();
     }
     #endregion
-
-    float GetMovementSpeed()
+    #region Events
+    void OnLevelStart()
     {
-        return Input.GetAxisRaw("Horizontal") * movementSpeed;
+        _canPlay = true;
     }
 
-    void DoJump()
+    void OnLevelEnd()
     {
-        if (_isSecondJumping)
-            return;
-
-        if (Input.GetButtonDown("Jump"))
-        {
-            if (!_isJumping)
-            {
-                _isJumping = true;
-                _hasJumped = true;
-            }
-            else
-            {
-                _isSecondJumping = true;
-                _hasJumped = true;
-            }
-        }
+        _canPlay = false;
     }
 
-    void SetPlayerState(PlayerState state)
-    {
-        if (_lastState == state)
-            return;
-
-        _currentState = state;
-        _animator.Play(state.ToString());
-    }
+    #endregion
 }
