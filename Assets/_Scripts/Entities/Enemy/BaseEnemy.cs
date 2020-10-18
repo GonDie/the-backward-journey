@@ -18,7 +18,7 @@ public class BaseEnemy : MonoBehaviour
     protected int _currentWaypoint;
     protected Transform _playerTrans;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _transform = GetComponent<Transform>();
         _animator = GetComponent<Animator>();
@@ -79,6 +79,12 @@ public class BaseEnemy : MonoBehaviour
 
     protected virtual void ChasingState()
     {
+        if(_playerTrans == null)
+        {
+            _state = EnemyState.Patroling;
+            return;
+        }
+
         _animator.Play("Moving");
 
         Vector3 direction = _playerTrans.position - _transform.position;
