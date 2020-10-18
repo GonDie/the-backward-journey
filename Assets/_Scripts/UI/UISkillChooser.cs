@@ -78,7 +78,11 @@ public class UISkillChooser : MonoBehaviour
 
         _cg.interactable = false;
         _cg.blocksRaycasts = false;
-        _cg.DOFade(0f, 1f).Play();
+        _cg.DOFade(0f, 1f).OnComplete(() =>
+        {
+            for (int i = 0; i < _skillsContainer.childCount; i++)
+                Destroy(_skillsContainer.GetChild(i));
+        }).Play();
 
         GameManager.Instance.GoToNextLevel();
     }
