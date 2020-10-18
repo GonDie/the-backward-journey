@@ -79,6 +79,8 @@ public class UISkillChooser : MonoBehaviour
         _cg.interactable = false;
         _cg.blocksRaycasts = false;
         _cg.DOFade(0f, 1f).Play();
+
+        GameManager.Instance.GoToNextLevel();
     }
 
     void ToggleConfirm(bool toggle)

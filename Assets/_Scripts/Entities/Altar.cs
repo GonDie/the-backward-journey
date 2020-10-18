@@ -14,7 +14,7 @@ public class Altar : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             _triggered = true;
-            Events.OnLevelEnd?.Invoke();
+            GameManager.Instance.TriggerLevelEnd();
         }
     }
 }

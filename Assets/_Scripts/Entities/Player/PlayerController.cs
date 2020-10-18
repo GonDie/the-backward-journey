@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     bool _isDefending;
     bool _isDashing, _canDash;
     bool _isDead, _isStunned;
-    bool _canPlay = true;
+    bool _canPlay;
 
     Coroutine _gettingHitCoroutine, _dashCoroutine, _meleeCoroutine, _rangedCoroutine;
 
