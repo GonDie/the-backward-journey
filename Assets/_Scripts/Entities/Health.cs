@@ -21,10 +21,4 @@ public class Health : MonoBehaviour
         else
             OnHit?.Invoke(_currentHealth / _maxHealth);
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-            DealDamage(1f);
-    }
 }
