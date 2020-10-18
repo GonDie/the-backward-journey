@@ -1,18 +1,24 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Altar : MonoBehaviour
 {
-    bool _triggered;
+    static Coroutine _endLevelCoroutine;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (_triggered)
-            return;
-
         if (collision.CompareTag("Player"))
         {
-            _triggered = true;
-            GameManager.Instance.TriggerLevelEnd();
+            if (_endLevelCoroutine == null)
+                _endLevelCoroutine = StartCoroutine(EndLevelCoroutine());
         }
+    }
+
+    IEnumerator EndLevelCoroutine()
+    {
+        GameManager.Instance.TriggerLevelEnd();
+        yield return null;
+
+        _endLevelCoroutine = null;
     }
 }

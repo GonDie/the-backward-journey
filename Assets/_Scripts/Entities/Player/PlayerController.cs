@@ -63,8 +63,6 @@ public class PlayerController : MonoBehaviour
         _skills.Add("Melee", GetComponent<MeleeSkill>());
         _skills.Add("Ranged", GetComponent<RangedSkill>());
         _skills.Add("LifeSteal", GetComponent<LifeStealSkill>());
-
-        Debug.Log(_skills.Count);
     }
 
     private void OnDestroy()
