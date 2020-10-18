@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     Coroutine _gettingHitCoroutine, _dashCoroutine, _meleeCoroutine, _rangedCoroutine;
 
     Dictionary<string, BaseSkill> _skills;
+    public Dictionary<string, BaseSkill> Skills { get => _skills; }
 
     private void Awake()
     {
@@ -59,6 +60,8 @@ public class PlayerController : MonoBehaviour
         _skills.Add("Melee", GetComponent<MeleeSkill>());
         _skills.Add("Ranged", GetComponent<RangedSkill>());
         _skills.Add("LifeSteal", GetComponent<LifeStealSkill>());
+
+        Debug.Log(_skills.Count);
     }
 
     private void OnDestroy()
@@ -347,7 +350,9 @@ public class PlayerController : MonoBehaviour
 
     void OnLevelEnd()
     {
+        _moveSpeed = 0;
         _canPlay = false;
+        SetPlayerState(PlayerState.Idle);
     }
 
     void OnFallEvent()

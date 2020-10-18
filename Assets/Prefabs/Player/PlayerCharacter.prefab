@@ -322,12 +322,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 40
-  _mainLayer:
-    serializedVersion: 2
-    m_Bits: 2048
-  _dashingLayer:
-    serializedVersion: 2
-    m_Bits: 16384
 --- !u!114 &6447742818381610803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,6 +348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isActive: 1
+  _skillId: 0
   _skillName: Double Jump
   _cooldownDuration: 0
 --- !u!114 &9196097090174486433
@@ -369,6 +364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isActive: 1
+  _skillId: 1
   _skillName: Dash
   _cooldownDuration: 0
 --- !u!114 &7188980243009874676
@@ -384,6 +380,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isActive: 1
+  _skillId: 2
   _skillName: Defend
   _cooldownDuration: 0
 --- !u!114 &3686342845229894492
@@ -399,6 +396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isActive: 1
+  _skillId: 3
   _skillName: Melee Attack
   _cooldownDuration: 0
   _damage: 1
@@ -415,6 +413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isActive: 1
+  _skillId: 4
   _skillName: Ranged Attack
   _cooldownDuration: 1
   _arrowOrigin: {fileID: 6492038338436197091}
@@ -433,6 +432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isActive: 1
+  _skillId: 5
   _skillName: Life Steal
   _cooldownDuration: 0
 --- !u!1 &3115742418584497046

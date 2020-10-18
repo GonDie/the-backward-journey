@@ -14,7 +14,7 @@ public class Singleton<T> : MonoBehaviour
         }
 
         _instance = GetComponent<T>();
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         Events.OnGameExit += OnLeaveGame;
     }

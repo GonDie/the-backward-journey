@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8667018419950491706}
   - component: {fileID: 8667018419950491707}
+  - component: {fileID: 5128153624237202501}
   m_Layer: 10
   m_Name: LevelContainer
   m_TagString: Untagged
@@ -60,3 +61,16 @@ PolygonCollider2D:
       - {x: -3.5, y: -2}
       - {x: 3.5, y: -2}
       - {x: 3.5, y: 2}
+--- !u!114 &5128153624237202501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8667018419950491704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cac8e36cd39294a42a813237751abbf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpawn: {fileID: 0}
