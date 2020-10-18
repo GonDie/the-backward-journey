@@ -1,12 +1,14 @@
 ﻿using Cinemachine;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
     public PlayerController player;
     public GameObject[] levelPrefabs;
     public CinemachineConfiner cameraConfiner;
+    public CanvasGroup gameOverCanvasGroup;
 
     int _currentLevelIndex;
     Level _currentLevel;
@@ -41,8 +43,27 @@ public class GameManager : Singleton<GameManager>
 
         FadeManager.Instance.Fade(true, 1f, () =>
         {
-            Destroy(_currentLevel.gameObject);
-            CreateNextLevel();
+            if (_currentLevelIndex >= levelPrefabs.Length - 1)
+            {
+                FadeManager.Instance.Fade(true, 0f, () => SceneManager.LoadScene("End"));
+            }
+            else
+            {
+                Destroy(_currentLevel.gameObject);
+                CreateNextLevel();
+            }
         });
+    }
+
+    public void GameOver()
+    {
+        gameOverCanvasGroup.blocksRaycasts = true;
+        gameOverCanvasGroup.interactable = true;
+        gameOverCanvasGroup.DOFade(1f, 1f).Play();
+    }
+
+    public void Reload()
+    {
+        FadeManager.Instance.Fade(true, 0f, () => SceneManager.LoadScene("Main"));
     }
 }

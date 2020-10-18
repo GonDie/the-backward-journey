@@ -1,24 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &4683699889606689138
+--- !u!114 &2198785070843755843
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7030136032182091632}
+  m_GameObject: {fileID: 5056965508711385692}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f58eafee2c2fb484baeee922ebab1b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 1
-  _speed: 20
-  _lifeTime: 3
+  _speed: 5
+  _lifeTime: 5
   _targetLayer:
     serializedVersion: 2
-    m_Bits: 4096
---- !u!1001 &7765194250670730274
+    m_Bits: 2048
+--- !u!1001 &5511982805734938894
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -28,7 +28,32 @@ PrefabInstance:
     - target: {fileID: 744092836839904082, guid: 79542e1daa2732a4d843a5b9ed70df77,
         type: 3}
       propertyPath: m_Name
-      value: Player_Arrow
+      value: Spit
+      objectReference: {fileID: 0}
+    - target: {fileID: 744092836839904083, guid: 79542e1daa2732a4d843a5b9ed70df77,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 744092836839904083, guid: 79542e1daa2732a4d843a5b9ed70df77,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.7830189
+      objectReference: {fileID: 0}
+    - target: {fileID: 744092836839904083, guid: 79542e1daa2732a4d843a5b9ed70df77,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 744092836839904083, guid: 79542e1daa2732a4d843a5b9ed70df77,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 744092836839904083, guid: 79542e1daa2732a4d843a5b9ed70df77,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 744092836839904084, guid: 79542e1daa2732a4d843a5b9ed70df77,
         type: 3}
@@ -85,16 +110,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 744092836839904086, guid: 79542e1daa2732a4d843a5b9ed70df77,
+    - target: {fileID: 744092836839904084, guid: 79542e1daa2732a4d843a5b9ed70df77,
         type: 3}
-      propertyPath: _targetLayer.m_Bits
-      value: 4096
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 744092836839904084, guid: 79542e1daa2732a4d843a5b9ed70df77,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 744092836839904084, guid: 79542e1daa2732a4d843a5b9ed70df77,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79542e1daa2732a4d843a5b9ed70df77, type: 3}
---- !u!1 &7030136032182091632 stripped
+--- !u!1 &5056965508711385692 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 744092836839904082, guid: 79542e1daa2732a4d843a5b9ed70df77,
     type: 3}
-  m_PrefabInstance: {fileID: 7765194250670730274}
+  m_PrefabInstance: {fileID: 5511982805734938894}
   m_PrefabAsset: {fileID: 0}

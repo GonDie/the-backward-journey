@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviour
     {
         _collider = GetComponent<CircleCollider2D>();
         _transform = GetComponent<Transform>();
-        _transform.localScale = new Vector3(direction, 1f, 1f);
+        _transform.localScale = new Vector3(_transform.localScale.x * direction, _transform.localScale.y, _transform.localScale.z);
 
         OnInit(direction);
 

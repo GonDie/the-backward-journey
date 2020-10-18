@@ -877,6 +877,7 @@ MonoBehaviour:
   _skillId: 5
   _skillName: Life Steal
   _cooldownDuration: 0
+  healAmount: 0.2
 --- !u!1 &3115742418584497046
 GameObject:
   m_ObjectHideFlags: 0

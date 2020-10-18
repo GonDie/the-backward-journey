@@ -199,8 +199,6 @@ public class PlayerController : MonoBehaviour
 
         _currentState = state;
         _animator.Play(state.ToString());
-
-        Debug.Log(state.ToString());
     }
 
     #region States
@@ -345,6 +343,7 @@ public class PlayerController : MonoBehaviour
         _moveSpeed = 0f;
         soundController.PlayDeath();
         soundController.PlayGameOver();
+        GameManager.Instance.GameOver();
         StopAllCoroutines();
     }
     #endregion

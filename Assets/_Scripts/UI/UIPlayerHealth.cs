@@ -15,6 +15,7 @@ public class UIPlayerHealth : MonoBehaviour
 
         _health.OnHit += OnUpdateHealth;
         _health.OnDeath += OnUpdateHealth;
+        _health.OnHeal += OnUpdateHealth;
     }
 
     void OnUpdateHealth(float percentage)

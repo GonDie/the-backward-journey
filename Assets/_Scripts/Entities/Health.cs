@@ -5,7 +5,7 @@ public class Health : MonoBehaviour
     [SerializeField] float _maxHealth = 5f;
     float _currentHealth;
 
-    public FloatEvent OnHit, OnDeath;
+    public FloatEvent OnHit, OnDeath, OnHeal;
 
     private void Awake()
     {
@@ -20,5 +20,12 @@ public class Health : MonoBehaviour
             OnDeath?.Invoke(_currentHealth / _maxHealth);
         else
             OnHit?.Invoke(_currentHealth / _maxHealth);
+    }
+
+    public void Heal(float amount)
+    {
+         _currentHealth = Mathf.Clamp(_currentHealth + amount, 0f, _maxHealth);
+
+        OnHeal?.Invoke(_currentHealth / _maxHealth);
     }
 }

@@ -18,7 +18,7 @@ public class MeleeSkill : BaseSkill
     {
         Vector2 origin = _transform.position + Vector3.right * _collider.size.x;
 
-        RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, Vector2.one / 2f, 0f, Vector2.right * Mathf.Sign(_transform.localScale.x), 0.5f, 1 << LayerMask.NameToLayer("Enemy"));
+        RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, Vector2.one / 2f, 0f, Vector2.right * Mathf.Sign(_transform.localScale.x), 2f, 1 << LayerMask.NameToLayer("Enemy"));
 
         for(int i = 0; i < hits.Length; i++)
         {

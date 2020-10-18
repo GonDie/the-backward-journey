@@ -7,6 +7,8 @@ public class Spikes : BaseEnemy
 
     float _baseMoveSpeed;
 
+    Coroutine _attackRoutine;
+
     protected override void Awake()
     {
         base.Awake();
@@ -33,7 +35,9 @@ public class Spikes : BaseEnemy
         base.DoAttack();
 
         _rigidbody2D.velocity = Vector2.zero;
-        StartCoroutine(AttackRoutine());
+
+        if(_attackRoutine == null)
+            _attackRoutine = StartCoroutine(AttackRoutine());
     }
 
     IEnumerator AttackRoutine()
@@ -50,5 +54,6 @@ public class Spikes : BaseEnemy
         yield return new WaitForSeconds(0.5f);
 
         _state = EnemyState.Chasing;
+        _attackRoutine = null;
     }
 }
