@@ -35,6 +35,7 @@ public class GameManager : Singleton<GameManager>
 
     public void GoToNextLevel()
     {
+        player.soundController.PlayTeleport();
         player.SetPlayerState(PlayerController.PlayerState.Teleporting);
         player.Transform.DOMoveY(player.Transform.position.y + 2f, 1f).Play();
 
