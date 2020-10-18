@@ -9,11 +9,12 @@ public class PlayerController : MonoBehaviour
     const float STUN_DURATION = 0.3f;
     const float GRAVITY_SCALE = 3f;
 
-    public enum PlayerState { Idle, Running, Falling, GettingHit, Dying, Defending, Dashing, AttackingMelee, AttackingRanged }
+    public enum PlayerState { Idle, Running, Falling, GettingHit, Dying, Defending, Dashing, AttackingMelee, AttackingRanged, Teleporting }
 
     [SerializeField] float movementSpeed = 1f;
 
     Transform _transform;
+    public Transform Transform { get => _transform; }
     Rigidbody2D _rigidbody2D;
     Animator _animator;
     SpriteRenderer _spriteRenderer;
@@ -191,7 +192,7 @@ public class PlayerController : MonoBehaviour
         _skills["LifeSteal"].Cast();
     }
 
-    void SetPlayerState(PlayerState state)
+    public void SetPlayerState(PlayerState state)
     {
         if (_lastState == state || _lastState == PlayerState.Dying)
             return;
@@ -345,11 +346,15 @@ public class PlayerController : MonoBehaviour
     #region Events
     void OnLevelStart()
     {
+        _characterController.enabled = true;
+        _rigidbody2D.simulated = true;
         _canPlay = true;
     }
 
     void OnLevelEnd()
     {
+        _characterController.enabled = false;
+        _rigidbody2D.simulated = false;
         _moveSpeed = 0;
         _canPlay = false;
         SetPlayerState(PlayerState.Idle);

@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4dea5a1f005af048b695865a878e931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 241722557}
+  player: {fileID: 254942645}
   levelPrefabs:
   - {fileID: 4137028427112009182, guid: f386709de3d97fe4cbb72a1926841203, type: 3}
   - {fileID: 8207306101838260381, guid: df045fa4b467a1f45a9883f01e1eb244, type: 3}

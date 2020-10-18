@@ -1,9 +1,10 @@
 ﻿using Cinemachine;
+using DG.Tweening;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    public Transform player;
+    public PlayerController player;
     public GameObject[] levelPrefabs;
     public CinemachineConfiner cameraConfiner;
 
@@ -17,12 +18,13 @@ public class GameManager : Singleton<GameManager>
 
     public void CreateNextLevel()
     {
+        player.SetPlayerState(PlayerController.PlayerState.Idle);
         _currentLevel = Instantiate(levelPrefabs[_currentLevelIndex]).GetComponent<Level>();
         _currentLevelIndex++;
 
         cameraConfiner.m_BoundingShape2D = _currentLevel.GetComponent<PolygonCollider2D>();
 
-        player.position = _currentLevel.playerSpawn.position;
+        player.Transform.position = _currentLevel.playerSpawn.position;
         FadeManager.Instance.Fade(false, 0f, () => Events.OnLevelStart?.Invoke());
     }
 
@@ -33,6 +35,9 @@ public class GameManager : Singleton<GameManager>
 
     public void GoToNextLevel()
     {
+        player.SetPlayerState(PlayerController.PlayerState.Teleporting);
+        player.Transform.DOMoveY(player.Transform.position.y + 2f, 1f).Play();
+
         FadeManager.Instance.Fade(true, 1f, () =>
         {
             Destroy(_currentLevel.gameObject);
