@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 744092836839904084}
   - component: {fileID: 744092836839904083}
   - component: {fileID: 8045921722195351465}
-  - component: {fileID: 744092836839904086}
   m_Layer: 13
-  m_Name: Player_Arrow
+  m_Name: BaseProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,21 +99,3 @@ CircleCollider2D:
   m_Offset: {x: 0.04, y: 0.03}
   serializedVersion: 2
   m_Radius: 0.24
---- !u!114 &744092836839904086
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 744092836839904082}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f58eafee2c2fb484baeee922ebab1b2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _damage: 1
-  _speed: 20
-  _lifeTime: 3
-  _targetLayer:
-    serializedVersion: 2
-    m_Bits: 0

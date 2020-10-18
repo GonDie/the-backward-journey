@@ -291,7 +291,8 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator DashCoroutine()
     {
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), true);
+        //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), true);
+        gameObject.layer = LayerMask.NameToLayer("Immune");
         _isDashing = true;
         _trailRenderer.emitting = true;
         _rigidbody2D.gravityScale = 0f;
@@ -308,7 +309,8 @@ public class PlayerController : MonoBehaviour
         if (_characterController.IsGrounded)
             _canDash = true;
 
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), false);
+        //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), false);
+        gameObject.layer = LayerMask.NameToLayer("Player");
         SetPlayerState(PlayerState.Idle);
     }
 

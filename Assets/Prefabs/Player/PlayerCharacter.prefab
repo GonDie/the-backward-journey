@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 6309773744932054886}
   m_Layer: 11
   m_Name: PlayerCharacter
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -322,6 +322,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 40
+  _mainLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  _dashingLayer:
+    serializedVersion: 2
+    m_Bits: 16384
 --- !u!114 &6447742818381610803
 MonoBehaviour:
   m_ObjectHideFlags: 0
