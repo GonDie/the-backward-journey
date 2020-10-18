@@ -16,14 +16,19 @@ public abstract class BaseSkill : MonoBehaviour
         _isActive = false;
     }
 
-    public bool Cast()
+    public bool Cast(SimpleEvent callback = null)
     {
-        StartCoroutine(Cooldown());
-        return _isActive && DoCast();
+        return _isActive && DoCast(callback);
     }
 
-    protected abstract bool DoCast();
+    protected abstract bool DoCast(SimpleEvent callback = null);
     
+    protected void StartCoolingDown()
+    {
+        _inCooldown = true;
+        StartCoroutine(Cooldown());
+    }
+
     IEnumerator Cooldown()
     {
         yield return new WaitForSeconds(_cooldownDuration);

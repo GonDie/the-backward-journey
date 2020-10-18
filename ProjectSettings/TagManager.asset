@@ -17,8 +17,8 @@ TagManager:
   - Box
   - Level
   - Player
-  - 
-  - 
+  - Enemy
+  - Projectile
   - 
   - 
   - 
