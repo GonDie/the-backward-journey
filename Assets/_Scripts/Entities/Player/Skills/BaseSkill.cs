@@ -4,8 +4,11 @@ using UnityEngine;
 public abstract class BaseSkill : MonoBehaviour
 {
     [SerializeField] bool _isActive = true;
+    public bool IsActive { get => _isActive; }
+    [SerializeField] int _skillId;
+    public int SkillId { get => _skillId; }
     [SerializeField] string _skillName;
-    public string SkillName { get => SkillName; }
+    public string SkillName { get => _skillName; }
     [SerializeField] float _cooldownDuration;
     float _cooldown;
 
