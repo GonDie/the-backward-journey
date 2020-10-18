@@ -5,6 +5,9 @@ public class Health : MonoBehaviour
     [SerializeField] float _maxHealth = 5f;
     float _currentHealth;
 
+    bool _isDefending;
+    public bool IsDefending { get => _isDefending; set => _isDefending = value; }
+
     public FloatEvent OnHit, OnDeath, OnHeal;
 
     private void Awake()
@@ -14,7 +17,7 @@ public class Health : MonoBehaviour
 
     public void DealDamage(float damage)
     {
-        _currentHealth -= damage;
+        _currentHealth -= damage * (_isDefending ? 0.5f : 1f);
 
         if (_currentHealth <= 0)
             OnDeath?.Invoke(_currentHealth / _maxHealth);

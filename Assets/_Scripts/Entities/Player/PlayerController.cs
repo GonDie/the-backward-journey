@@ -149,14 +149,16 @@ public class PlayerController : MonoBehaviour
         if (!_skills["Defend"].Cast())
             return;
 
-        if (Input.GetButtonDown("Defend"))
+        _isDefending = Input.GetButton("Defend");
+
+        if (_isDefending)
         {
-            _isDefending = true;
+            _health.IsDefending = true;
             SetPlayerState(PlayerState.Defending);
         }
-        else if (Input.GetButtonUp("Defend"))
+        else
         {
-            _isDefending = false;
+            _health.IsDefending = false;
             SetPlayerState(PlayerState.Idle);
         }
     }

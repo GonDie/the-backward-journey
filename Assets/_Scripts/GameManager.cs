@@ -43,7 +43,7 @@ public class GameManager : Singleton<GameManager>
 
         FadeManager.Instance.Fade(true, 1f, () =>
         {
-            if (_currentLevelIndex >= levelPrefabs.Length - 1)
+            if (_currentLevelIndex >= levelPrefabs.Length)
             {
                 FadeManager.Instance.Fade(true, 0f, () => SceneManager.LoadScene("End"));
             }

@@ -7,11 +7,11 @@ public class Singleton<T> : MonoBehaviour
 
     protected virtual void Awake()
     {
-        if (_instance != null)
+        /*if (_instance != null)
         {
             Destroy(gameObject);
             return;
-        }
+        }*/
 
         _instance = GetComponent<T>();
         //DontDestroyOnLoad(gameObject);
