@@ -4,18 +4,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    const float MELEE_DURATION = 0.3f;
+    const float RANGED_DURATION = 0.3f;
     const float STUN_DURATION = 0.3f;
     const float GRAVITY_SCALE = 3f;
 
     public enum PlayerState { Idle, Running, Falling, GettingHit, Dying, Defending, Dashing, AttackingMelee, AttackingRanged }
 
     [SerializeField] float movementSpeed = 1f;
-
-    [Header("Skills")]
-    [SerializeField] BaseSkill _defendSkill;
-    [SerializeField] BaseSkill _attackMeleeSkill;
-    [SerializeField] BaseSkill _attackRangedSkill;
-    [SerializeField] BaseSkill _lifeStealSkill;
 
     Transform _transform;
     Rigidbody2D _rigidbody2D;
@@ -34,7 +30,7 @@ public class PlayerController : MonoBehaviour
     bool _isDead, _isStunned;
     bool _canPlay = true;
 
-    Coroutine _gettingHitCoroutine, _dashCoroutine;
+    Coroutine _gettingHitCoroutine, _dashCoroutine, _meleeCoroutine, _rangedCoroutine;
 
     Dictionary<string, BaseSkill> _skills;
 
@@ -173,6 +169,25 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void DoMelee()
+    {
+        if (Input.GetButtonDown("Melee"))
+            if (_skills["Melee"].Cast(OnSkillConnect))
+                SetPlayerState(PlayerState.AttackingMelee);
+    }
+
+    void DoRanged()
+    {
+        if (Input.GetButtonDown("Ranged"))
+            if (_skills["Ranged"].Cast(OnSkillConnect))
+                SetPlayerState(PlayerState.AttackingRanged);
+    }
+
+    void OnSkillConnect()
+    {
+        _skills["LifeSteal"].Cast();
+    }
+
     void SetPlayerState(PlayerState state)
     {
         if (_lastState == state || _lastState == PlayerState.Dying)
@@ -197,6 +212,8 @@ public class PlayerController : MonoBehaviour
         DoJump();
         DoDefend();
         DoDash();
+        DoMelee();
+        DoRanged();
     }
 
     void RunningState()
@@ -211,6 +228,8 @@ public class PlayerController : MonoBehaviour
         DoJump();
         DoDefend();
         DoDash();
+        DoMelee();
+        DoRanged();
     }
 
     void DefendingState()
@@ -229,16 +248,38 @@ public class PlayerController : MonoBehaviour
 
         DoJump();
         DoDash();
+        DoMelee();
+        DoRanged();
     }
 
     void MeleeState()
     {
+        _moveSpeed = 0f;
 
+        if (_meleeCoroutine == null)
+            _meleeCoroutine = StartCoroutine(MeleeCoroutine());
+    }
+    IEnumerator MeleeCoroutine()
+    {
+        yield return new WaitForSeconds(MELEE_DURATION);
+
+        _meleeCoroutine = null;
+        SetPlayerState(PlayerState.Idle);
     }
 
     void RangedState()
     {
+        _moveSpeed = 0f;
 
+        if (_rangedCoroutine == null)
+            _rangedCoroutine = StartCoroutine(RangedCoroutine());
+    }
+    IEnumerator RangedCoroutine()
+    {
+        yield return new WaitForSeconds(RANGED_DURATION);
+
+        _rangedCoroutine = null;
+        SetPlayerState(PlayerState.Idle);
     }
 
     void DashingState()
@@ -250,6 +291,8 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator DashCoroutine()
     {
+        //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), true);
+        gameObject.layer = LayerMask.NameToLayer("Immune");
         _isDashing = true;
         _trailRenderer.emitting = true;
         _rigidbody2D.gravityScale = 0f;
@@ -266,6 +309,8 @@ public class PlayerController : MonoBehaviour
         if (_characterController.IsGrounded)
             _canDash = true;
 
+        //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), false);
+        gameObject.layer = LayerMask.NameToLayer("Player");
         SetPlayerState(PlayerState.Idle);
     }
 

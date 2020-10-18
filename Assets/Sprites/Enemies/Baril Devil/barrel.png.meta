@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 5dbf78fd352b6bc49a615709c3eba97c
+guid: e1cd6f99106b07e43ba95a39ed70c409
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6794883862999762005
-    second: hero_range_0
-  - first:
-      213: 3917875702700561073
-    second: hero_range_1
-  - first:
-      213: 2001488281666262537
-    second: hero_range_2
+      213: -8568042794190644651
+    second: barrel_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -55,7 +49,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 6
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -134,13 +128,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: hero_range_0
+      name: barrel_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -148,50 +142,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bab7ddf9029b3b1a0800000000000000
-      internalID: -6794883862999762005
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: hero_range_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1b2d99d91371f5630800000000000000
-      internalID: 3917875702700561073
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: hero_range_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 90613d2ecf6b6cb10800000000000000
-      internalID: 2001488281666262537
+      spriteID: 55adbef5972381980800000000000000
+      internalID: -8568042794190644651
       vertices: []
       indices: 
       edges: []

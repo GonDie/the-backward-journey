@@ -1,16 +1,19 @@
 fileFormatVersion: 2
-guid: 5dbf78fd352b6bc49a615709c3eba97c
+guid: c986cd61bf2557e4b9f0bb32552fcfed
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6794883862999762005
-    second: hero_range_0
+      213: 3759895644513051736
+    second: baril_throw_0
   - first:
-      213: 3917875702700561073
-    second: hero_range_1
+      213: -1839419484352550465
+    second: baril_throw_1
   - first:
-      213: 2001488281666262537
-    second: hero_range_2
+      213: 6635155682604745591
+    second: baril_throw_2
+  - first:
+      213: -2049395344583186722
+    second: baril_throw_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -55,7 +58,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 6
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -134,7 +137,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: hero_range_0
+      name: baril_throw_0
       rect:
         serializedVersion: 2
         x: 0
@@ -148,14 +151,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bab7ddf9029b3b1a0800000000000000
-      internalID: -6794883862999762005
+      spriteID: 8542dbbfa25dd2430800000000000000
+      internalID: 3759895644513051736
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hero_range_1
+      name: baril_throw_1
       rect:
         serializedVersion: 2
         x: 32
@@ -169,14 +172,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1b2d99d91371f5630800000000000000
-      internalID: 3917875702700561073
+      spriteID: fb9eb3289b11976e0800000000000000
+      internalID: -1839419484352550465
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hero_range_2
+      name: baril_throw_2
       rect:
         serializedVersion: 2
         x: 64
@@ -190,8 +193,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90613d2ecf6b6cb10800000000000000
-      internalID: 2001488281666262537
+      spriteID: 773021350fec41c50800000000000000
+      internalID: 6635155682604745591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: baril_throw_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed6a7c1dac51f83e0800000000000000
+      internalID: -2049395344583186722
       vertices: []
       indices: 
       edges: []
