@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
     Dictionary<string, BaseSkill> _skills;
     public Dictionary<string, BaseSkill> Skills { get => _skills; }
 
+    public SoundsController soundController;
+
     private void Awake()
     {
         _transform = GetComponent<Transform>();
@@ -264,6 +266,7 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator MeleeCoroutine()
     {
+        soundController.PlaySword();
         yield return new WaitForSeconds(MELEE_DURATION);
 
         _meleeCoroutine = null;
@@ -279,6 +282,7 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator RangedCoroutine()
     {
+        soundController.PlayArrow();
         yield return new WaitForSeconds(RANGED_DURATION);
 
         _rangedCoroutine = null;
@@ -301,6 +305,7 @@ public class PlayerController : MonoBehaviour
         _rigidbody2D.gravityScale = 0f;
         float move = GetMovementSpeed();
         _moveSpeed = Mathf.Sign(_transform.localScale.x) * 100f;
+        soundController.PlayDash();
 
         yield return new WaitForSeconds(0.25f);
 
@@ -327,6 +332,7 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator GettingHitRoutine()
     {
+        soundController.PlayHit();
         yield return new WaitForSeconds(STUN_DURATION);
 
         _isStunned = false;
@@ -338,7 +344,8 @@ public class PlayerController : MonoBehaviour
     {
         _isDead = true;
         _moveSpeed = 0f;
-
+        soundController.PlayDeath();
+        soundController.PlayGameOver();
         StopAllCoroutines();
     }
     #endregion
@@ -346,6 +353,7 @@ public class PlayerController : MonoBehaviour
     void OnLevelStart()
     {
         _canPlay = true;
+        soundController.PlayTheme();
     }
 
     void OnLevelEnd()
