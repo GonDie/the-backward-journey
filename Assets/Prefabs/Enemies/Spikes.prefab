@@ -16,7 +16,7 @@ MonoBehaviour:
   - {fileID: 3491093197257106008}
   - {fileID: 3491093196975481926}
   _attackRange: 2
-  _moveSpeed: 300
+  _moveSpeed: 200
   damage: 1
 --- !u!1001 &1264046334691575674
 PrefabInstance:

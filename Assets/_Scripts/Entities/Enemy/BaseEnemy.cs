@@ -69,11 +69,11 @@ public class BaseEnemy : MonoBehaviour
         float distance = direction.magnitude;
         direction /= distance;
 
-        _rigidbody2D.velocity = direction * _moveSpeed * Time.deltaTime;
+        _rigidbody2D.velocity = new Vector2(direction.x * _moveSpeed * Time.deltaTime, _rigidbody2D.velocity.y);
 
         Flip();
 
-        if (distance <= 0.1f)
+        if (distance <= 1f)
             _currentWaypoint++;
     }
 
@@ -92,7 +92,7 @@ public class BaseEnemy : MonoBehaviour
         float distance = direction.magnitude;
         direction /= distance;
 
-        _rigidbody2D.velocity = direction * _moveSpeed * Time.deltaTime;
+        _rigidbody2D.velocity = new Vector2(direction.x * _moveSpeed * Time.deltaTime, _rigidbody2D.velocity.y);
 
         Flip();
 

@@ -352,6 +352,7 @@ public class PlayerController : MonoBehaviour
     #region Events
     void OnLevelStart()
     {
+        _health.Heal(2.5f);
         _characterController.enabled = true;
         _rigidbody2D.simulated = true;
         _canPlay = true;

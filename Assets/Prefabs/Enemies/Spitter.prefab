@@ -46,7 +46,7 @@ MonoBehaviour:
   - {fileID: 8580511656267806552}
   - {fileID: 8580511656977346886}
   _attackRange: Infinity
-  _moveSpeed: 100
+  _moveSpeed: 200
   spitPrefab: {fileID: 5056965508711385692, guid: 9a18d90c979e0194cafe27eedc37c7e4,
     type: 3}
   spitOrigin: {fileID: 1454382823834276957}
